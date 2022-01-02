@@ -28,7 +28,7 @@
     <jacoco.output.data>${project.build.directory}/coverage-reports</jacoco.output.data>
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
-    <jib.docker.image>paulushc/mn/${project.artifactId}</jib.docker.image>
+    <jib.docker.image>paulushc/mn-${project.artifactId}</jib.docker.image>
     <jib.docker.tag>${project.version}</jib.docker.tag>
   </properties>
 

@@ -29,5 +29,5 @@ jobs:
           DOCKER_REGISTRY_URL: ${{ secrets.DOCKER_REGISTRY_URL }}
           TESTCONTAINERS_RYUK_DISABLED: true
         run: |
-          export DOCKER_IMAGE=`echo "${DOCKER_REGISTRY_URL}/${DOCKER_REPOSITORY_PATH}/presence" | sed -e 's#//#/#' -e 's#^/##'`
+          export DOCKER_IMAGE=`echo "${DOCKER_REGISTRY_URL}/${DOCKER_REPOSITORY_PATH}presence" | sed -e 's#//#/#' -e 's#^/##'`
           mvn deploy -Dpackaging=docker -Djib.docker.image=$DOCKER_IMAGE --no-transfer-progress
