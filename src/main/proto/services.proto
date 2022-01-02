@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.github.paulushcgcj.grpc.services";
+option java_outer_classname = "PresenceServicesProto";
+
+import "model.proto";
+
+package io.github.paulushcgcj;
+
+service PresenceService {
+  //Request the status of a specific user
+  rpc status(io.github.paulushcgcj.PresenceRequest) returns (io.github.paulushcgcj.PresenceStatus) {}
+  //Request party status
+  rpc partyStatus(io.github.paulushcgcj.PresenceRequest) returns (io.github.paulushcgcj.PartyPresence) {}
+
+  //Set my status as...
+  rpc onOnline(io.github.paulushcgcj.PresenceRequest) returns (io.github.paulushcgcj.PresenceStatus) {}
+  rpc onOffline(io.github.paulushcgcj.PresenceRequest) returns (io.github.paulushcgcj.PresenceStatus) {}
+  rpc onAway(io.github.paulushcgcj.PresenceRequest) returns (io.github.paulushcgcj.PresenceStatus) {}
+  rpc onBusy(io.github.paulushcgcj.PresenceRequest) returns (io.github.paulushcgcj.PresenceStatus) {}
+  rpc onOOO(io.github.paulushcgcj.PresenceRequest) returns (io.github.paulushcgcj.PresenceStatus) {}
+
+}

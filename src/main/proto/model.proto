@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.github.paulushcgcj.grpc.models";
+option java_outer_classname = "PresenceModelsProto";
+package io.github.paulushcgcj;
+enum UserStatus {
+  UNKNOWN = 0;
+  ONLINE = 1;
+  BUSY = 2;
+  AWAY = 3;
+  OFFLINE = 4;
+  OUT_OF_OFFICE = 5;
+}
+
+message PresenceStatus {
+  string id = 1;
+  UserStatus status = 2;
+}
+
+message PresenceRequest {
+  string id = 1;
+}
+
+message PartyPresence{
+  string id = 1;
+  map<string,PresenceStatus> party = 2;
+}
+
+message PartyRequest{
+  string userId = 1;
+  string partyId = 2;
+}
+
+message PartyLeaveResponse{
+  bool left = 1;
+}
