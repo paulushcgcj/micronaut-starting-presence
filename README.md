@@ -34,3 +34,43 @@ This solution will solve one specific problem (handling presence) by consuming a
 ## Before Running
 
 Make sure to have the environment up by running the docker compose file before and enabling [keyspace notification](https://redis.io/topics/notifications) by running `config set notify-keyspace-events Kxe` on redis-cli.
+
+
+## Project Operation Diagrams
+
+I will try to illustrate how this service should operate and also where it fits in a hypothetical scenario where it interacts with another systems.
+
+### Internal Sequence Diagrams
+
+During login:
+
+```sequence {theme="hand"}
+title Presence Service
+
+actor Client #blue
+boundary gRPC Endpoint
+control Service
+database Redis #red
+
+Client->gRPC Endpoint:User logs into platform
+
+note over Client:When a user logs in, **onOnline** is triggered automatically
+
+gRPC Endpoint->Service:Trigger **updateUserStatus**
+
+note over Service:Status is set as **ONLINE** when user logs in.
+
+
+Service->Redis:Update status as **ONLINE**
+
+note over Redis:The status will be added to the existing session hash entry
+
+Service->Redis:Set expiration time to **2 min**
+
+note over Redis:Keep in mind that this expiration time should be aligned with the **global** expiration time
+
+
+gRPC Endpoint<-Service:Notify caller with current status
+
+Client<-gRPC Endpoint:Notify user with current status
+```
