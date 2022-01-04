@@ -55,3 +55,9 @@ I will try to illustrate how this service should operate and also where it fits 
 #### Inactivity
 
 ![Inactivity sequence diagram](./docs/img/inactive.svg)
+
+### Overview of System Interaction
+
+Keep in mind that this diagram is just an oversimplification of the whole proposed solution. A lot of components are missing, and it only serves the purpose of demonstration.
+
+![Simple system diagram](./docs/img/system.svg)
