@@ -13,6 +13,22 @@
     <version>3.2.3</version>
   </parent>
 
+  <licenses>
+    <license>
+      <name>GNU GENERAL PUBLIC LICENSE, Version 3</name>
+      <url>https://raw.githubusercontent.com/paulushcgcj/micronaut-starting-presence/master/LICENSE</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Paulo Gomes da Cruz Junior</name>
+      <email>paulushc@gmail.com</email>
+      <organization>PaulusHC</organization>
+      <organizationUrl>https://paulushcgcj.github.io/</organizationUrl>
+    </developer>
+  </developers>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -30,6 +46,9 @@
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <jib.docker.image>paulushc/mn-${project.artifactId}</jib.docker.image>
     <jib.docker.tag>${project.version}</jib.docker.tag>
+    <coveralls.token>${env.COVERALLS_TOKEN}</coveralls.token>
+    <sonar.organization>paulushcgcj-github</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
   </properties>
 
   <repositories>
@@ -461,7 +480,15 @@
           </dependency>
         </dependencies>
       </plugin>
+
+
     </plugins>
   </build>
+
+  <scm>
+    <connection>scm:git:${project.scm.url}</connection>
+    <developerConnection>scm:git:${project.scm.url}</developerConnection>
+    <url>git@github.com:paulushcgcj/micronaut-starting-presence.git</url>
+  </scm>
 
 </project>
