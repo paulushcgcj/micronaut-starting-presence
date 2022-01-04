@@ -1,0 +1,13 @@
+micronaut:
+  application:
+    name: partyPresence
+
+io:
+  github:
+    paulushcgcj:
+      presence:
+        expiresIn: 10s
+        database: 0
+        keyspace: "io:github:paulushcgcj:uid"
+
+

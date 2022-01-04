@@ -1,5 +1,7 @@
 # Simple Presence Service
 
+[![Coverage Status](https://coveralls.io/repos/github/paulushcgcj/micronaut-starting-presence/badge.svg?branch=main)](https://coveralls.io/github/paulushcgcj/micronaut-starting-presence?branch=main)
+
 Imagine a simple service to manage user presence in a chat/group. The idea is that the complete system will authenticate the
 user in another microservice, and that microservice will set some user information (such as session ID, name, roles, etc.).
 
@@ -34,3 +36,28 @@ This solution will solve one specific problem (handling presence) by consuming a
 ## Before Running
 
 Make sure to have the environment up by running the docker compose file before and enabling [keyspace notification](https://redis.io/topics/notifications) by running `config set notify-keyspace-events Kxe` on redis-cli.
+
+
+## Project Operation Diagrams
+
+I will try to illustrate how this service should operate and also where it fits in a hypothetical scenario where it interacts with another systems.
+
+### Internal Sequence Diagrams
+
+#### During login
+
+![Login sequence diagram](./docs/img/userlogin.svg)
+
+#### Changing Status
+
+![Status change sequence diagram](./docs/img/statuschange.svg)
+
+#### Inactivity
+
+![Inactivity sequence diagram](./docs/img/inactive.svg)
+
+### Overview of System Interaction
+
+Keep in mind that this diagram is just an oversimplification of the whole proposed solution. A lot of components are missing, and it only serves the purpose of demonstration.
+
+![Simple system diagram](./docs/img/system.svg)
