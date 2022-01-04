@@ -28,6 +28,6 @@ jobs:
       - name: Integration Tests
         run: mvn -B verify -P integration-test --file pom.xml
       - name: Code Coverage
-        run: mvn -B clean verify -P all-tests coveralls:report --file pom.xml
+        run: mvn -B clean verify -P all-tests -D coveralls.token=$COVERALLS_TOKEN coveralls:report --file pom.xml
         env:
           COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
