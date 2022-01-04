@@ -1,5 +1,7 @@
 # Simple Presence Service
 
+[![Coverage Status](https://coveralls.io/repos/github/paulushcgcj/micronaut-starting-presence/badge.svg?branch=main)](https://coveralls.io/github/paulushcgcj/micronaut-starting-presence?branch=main)
+
 Imagine a simple service to manage user presence in a chat/group. The idea is that the complete system will authenticate the
 user in another microservice, and that microservice will set some user information (such as session ID, name, roles, etc.).
 
@@ -42,35 +44,14 @@ I will try to illustrate how this service should operate and also where it fits 
 
 ### Internal Sequence Diagrams
 
-During login:
+#### During login
 
-```sequence {theme="hand"}
-title Presence Service
+![Login sequence diagram](./docs/img/userlogin.svg)
 
-actor Client #blue
-boundary gRPC Endpoint
-control Service
-database Redis #red
+#### Changing Status
 
-Client->gRPC Endpoint:User logs into platform
+![Status change sequence diagram](./docs/img/statuschange.svg)
 
-note over Client:When a user logs in, **onOnline** is triggered automatically
+#### Inactivity
 
-gRPC Endpoint->Service:Trigger **updateUserStatus**
-
-note over Service:Status is set as **ONLINE** when user logs in.
-
-
-Service->Redis:Update status as **ONLINE**
-
-note over Redis:The status will be added to the existing session hash entry
-
-Service->Redis:Set expiration time to **2 min**
-
-note over Redis:Keep in mind that this expiration time should be aligned with the **global** expiration time
-
-
-gRPC Endpoint<-Service:Notify caller with current status
-
-Client<-gRPC Endpoint:Notify user with current status
-```
+![Inactivity sequence diagram](./docs/img/inactive.svg)

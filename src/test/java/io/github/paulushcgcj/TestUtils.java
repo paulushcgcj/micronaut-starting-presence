@@ -1,9 +1,9 @@
 package io.github.paulushcgcj;
 
+import java.time.Duration;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-
-import java.time.Duration;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TestUtils {

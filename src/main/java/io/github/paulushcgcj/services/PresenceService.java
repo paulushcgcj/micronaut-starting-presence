@@ -1,5 +1,11 @@
 package io.github.paulushcgcj.services;
 
+import java.time.Duration;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.tuple.Pair;
+
 import io.github.paulushcgcj.grpc.models.PresenceStatus;
 import io.github.paulushcgcj.grpc.models.UserStatus;
 import io.github.paulushcgcj.utils.RedisUtils;
@@ -8,12 +14,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.tuple.Pair;
 import reactor.core.publisher.Mono;
-
-import java.time.Duration;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Singleton
 @Slf4j
