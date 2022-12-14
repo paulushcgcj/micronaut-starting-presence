@@ -33,8 +33,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <packaging>jar</packaging>
-    <jdk.version>11</jdk.version>
-    <release.version>11</release.version>
+    <jdk.version>17</jdk.version>
+    <release.version>17</release.version>
     <micronaut.version>3.2.3</micronaut.version>
     <exec.mainClass>io.github.paulushcgcj.Application</exec.mainClass>
     <skip.integration.tests>true</skip.integration.tests>
@@ -46,7 +46,6 @@
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <jib.docker.image>paulushc/mn-${project.artifactId}</jib.docker.image>
     <jib.docker.tag>${project.version}</jib.docker.tag>
-    <coveralls.token>${env.COVERALLS_TOKEN}</coveralls.token>
     <sonar.organization>paulushcgcj-github</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
   </properties>
@@ -146,7 +145,7 @@
     <dependency>
       <groupId>io.projectreactor</groupId>
       <artifactId>reactor-test</artifactId>
-      <version>3.4.13</version>
+      <version>3.5.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -163,7 +162,7 @@
     <profile>
       <id>disable-java8-doclint</id>
       <activation>
-        <jdk>[1.8,1.12)</jdk>
+        <jdk>17</jdk>
       </activation>
       <properties>
         <additionalparam>-Xdoclint:none</additionalparam>
@@ -277,7 +276,7 @@
               <goal>verify</goal>
             </goals>
             <configuration>
-              <argLine>@{argLine} -Xmx1024m -XX:MaxPermSize=256m</argLine>
+              <argLine>@{argLine}</argLine>
               <useSystemClassLoader>false</useSystemClassLoader>
               <skipTests>${skip.integration.tests}</skipTests>
               <includes>
@@ -293,7 +292,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.22.2</version>
         <configuration>
-          <argLine>@{argLine} -Xmx1024m -XX:MaxPermSize=256m</argLine>
+          <argLine>@{argLine}</argLine>
           <skipTests>${skip.unit.tests}</skipTests>
           <excludes>
             <exclude>**/*IntegrationTest.java</exclude>
@@ -398,7 +397,7 @@
                     <limit>
                       <counter>LINE</counter>
                       <value>COVEREDRATIO</value>
-                      <minimum>75%</minimum>
+                      <minimum>70%</minimum>
                     </limit>
                   </limits>
                 </rule>
@@ -409,12 +408,31 @@
       </plugin>
 
       <plugin>
+        <groupId>org.cyclonedx</groupId>
+        <artifactId>cyclonedx-maven-plugin</artifactId>
+        <version>2.7.3</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>makeAggregateBom</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <projectType>application</projectType>
+          <outputFormat>all</outputFormat>
+          <outputName>bom</outputName>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>3.1.0</version>
         <configuration>
           <skip>${checkstyle.skip}</skip>
-          <configLocation>.mvn/google_checks.xml</configLocation>
+          <configLocation>google_checks.xml</configLocation>
           <encoding>UTF-8</encoding>
           <consoleOutput>true</consoleOutput>
           <failsOnError>true</failsOnError>
@@ -461,26 +479,6 @@
           </to>
         </configuration>
       </plugin>
-
-      <plugin>
-        <groupId>org.eluder.coveralls</groupId>
-        <artifactId>coveralls-maven-plugin</artifactId>
-        <version>4.3.0</version>
-        <configuration>
-          <repoToken>${coveralls.token}</repoToken>
-          <jacocoReports>
-            <jacocoReport>${jacoco.output.data}/jacoco-ut/jacoco.xml</jacocoReport>
-          </jacocoReports>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.3.1</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-
 
     </plugins>
   </build>
